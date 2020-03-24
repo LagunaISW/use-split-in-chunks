@@ -1,12 +1,18 @@
 import React from 'react'
 
-import { useMyHook } from '@lagunaisw/use-split-in-chunks'
+import { useSplitInChunks } from '@lagunaisw/use-split-in-chunks'
 
 const App = () => {
-  const example = useMyHook()
+  const chunks = useSplitInChunks(["Ted", "Tracy", "Marshal", "Lily", "Barney", "Robin"], 1)
   return (
     <div>
-      {example}
+      {chunks.map((chunk, index) => (
+        <ul key={index}> 
+          {chunk.map((item, index) => (
+            <li key={index}>{item}</li>)
+          )}
+        </ul>)
+      )}
     </div>
   )
 }
