@@ -1,23 +1,24 @@
-import * as React from 'react';
+import { useState, useEffect } from "react";
 
-export const useMyHook = () => {
-  let [{
-    counter
-  }, setState] = React.useState<{
-    counter: number;
-  }>({
-    counter: 0
-  });
+export const useSplitInChunks = (array: any[], chunkSize: number) => {
+  const [chunks, setChunks] = useState<any[]>([])
 
-  React.useEffect(() => {
-    let interval = window.setInterval(() => {
-      counter++;
-      setState({counter})
-    }, 1000)
-    return () => {
-      window.clearInterval(interval);
-    };
-  }, []);
+  if(chunkSize <= 0){
+    throw new Error("chunkSize should be greater than 0")
+  }
 
-  return counter;
+  useEffect(() => {
+    const result = array.reduce((resultArray: any[], item: any, index: number) => {
+      const chunkIndex = Math.floor(index / chunkSize);
+      if (!resultArray[chunkIndex]) {
+        resultArray[chunkIndex] = [];
+      }
+      resultArray[chunkIndex].push(item);
+      return resultArray;
+    }, []);
+    setChunks(result);
+  }, [setChunks])
+  
+
+  return chunks;
 };
