@@ -1,6 +1,6 @@
 {
   "name": "@lagunaisw/use-split-in-chunks",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "a custom React hook that split an array in chunks",
   "author": "lagunaisw",
   "license": "MIT",
