@@ -13,18 +13,40 @@ npm install --save @lagunaisw/use-split-in-chunks
 ## Usage
 
 ```tsx
-import * as React from 'react'
+import React from "react";
 
-import { useMyHook } from '@lagunaisw/use-split-in-chunks'
+import { useSplitInChunks } from "@lagunaisw/use-split-in-chunks";
 
-const Example = () => {
-  const example = useMyHook()
+const App = () => {
+  const names = ["Ted", "Tracy", "Marshal", "Lily", "Barney", "Robin"];
+  const { chunks, setSize } = useSplitInChunks(names, 2);
+
+  const handleMinus = () => {
+    setSize(prev => prev - 1);
+  };
+
+  const handlePlus = () => {
+    setSize(prev => prev + 1);
+  };
+
   return (
     <div>
-      {example}
+      <div>
+        <p>Change size:</p>
+        <button onClick={handleMinus}>-</button>
+        <button onClick={handlePlus}>+</button>
+      </div>
+      {chunks.map((chunk, index) => (
+        <ul key={index}>
+          {chunk.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ul>
+      ))}
     </div>
-  )
-}
+  );
+};
+export default App;
 ```
 
 ## License
